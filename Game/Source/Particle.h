@@ -1,17 +1,30 @@
 #pragma once
 #include "Point.h"
 
-
-
-
-
 class Particle {
+	// methods
 public:
-	iPoint position;
-	iPoint velocity;
-	iPoint acceleration;
+	Particle();
+	~Particle();
 
-	float lifetime;
+	void Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, float lifespan);
 
-	void Update();
+	void Update(float dt);
+
+	bool IsBeingUsed();
+
+protected:
+private:
+
+	// variables
+public:
+	fPoint position;
+	fPoint velocity;
+	fPoint acceleration;
+
+	float lifespan;
+
+protected:
+private:
+
 };

@@ -18,6 +18,10 @@
     <ClCompile Include="Source\Particle.cpp">
       <Filter>Particles</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ParticleSystem.cpp">
+      <Filter>Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParticleSystemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -58,6 +62,10 @@
     <ClInclude Include="Source\Particle.h">
       <Filter>Particles</Filter>
     </ClInclude>
+    <ClInclude Include="Source\ParticleSystem.h">
+      <Filter>Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParticleSystemManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
