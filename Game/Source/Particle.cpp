@@ -10,11 +10,17 @@ Particle::~Particle()
 
 }
 
-void Particle::Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, float lifespan)
+void Particle::Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, char red, char green, char blue, char transparency, float lifespan)
 {
 	this->position = initialPosition;
 	this->velocity = initiaVelocity;
 	this->acceleration = acceleration;
+
+	this->r = red;
+	this->g = green;
+	this->b = blue;
+	this->alpha = transparency;
+
 	this->lifespan = lifespan;
 }
 

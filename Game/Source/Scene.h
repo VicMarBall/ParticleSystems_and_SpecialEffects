@@ -3,6 +3,8 @@
 
 #include "Module.h"
 
+#include "ParticleSystem.h"
+
 struct SDL_Texture;
 
 class Scene : public Module
@@ -34,6 +36,8 @@ public:
 
 private:
 	SDL_Texture* img;
+
+	ParticleSystem PS;
 };
 
 #endif // __SCENE_H__

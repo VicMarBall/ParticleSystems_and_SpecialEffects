@@ -7,7 +7,7 @@ public:
 	Particle();
 	~Particle();
 
-	void Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, float lifespan);
+	void Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, char red, char green, char blue, char transparency, float lifespan);
 
 	void Update(float dt);
 
@@ -21,6 +21,11 @@ public:
 	fPoint position;
 	fPoint velocity;
 	fPoint acceleration;
+
+	char r;
+	char g;
+	char b;
+	char alpha;
 
 	float lifespan;
 

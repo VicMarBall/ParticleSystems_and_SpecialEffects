@@ -11,6 +11,11 @@ public:
 	ParticleSystem();
 	~ParticleSystem();
 
+	// to delete (put in manager)
+	void SetParticleSystem(iPoint position, iPoint velocity, iPoint acceleration, 
+		char initialR, char initialG, char initialB, char initialAlpha, 
+		float spawnRate, float lifespan, bool isConstant, int maxParticles);
+
 	void Start();
 	void Update(float dt);
 	void PostUpdate();
@@ -24,12 +29,23 @@ public:
 	iPoint velocity;
 	iPoint acceleration;
 
+	char initialR;
+	char initialG;
+	char initialB;
+	char initialAlpha;
+
 	float spawnRate;
 
 	float lifespan;
 
+	bool isConstant;
+
+	// to delete
+	int maxParticles;
+
 protected:
 private:
+
 	float timeFromLastSpawn;
 
 	SDL_Texture* texture;
