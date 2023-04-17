@@ -5,6 +5,8 @@
 #include "List.h"
 #include "Particle.h"
 
+
+
 class ParticleSystem {
 	// methods
 public:
@@ -16,29 +18,38 @@ public:
 		char initialR, char initialG, char initialB, char initialAlpha, 
 		float spawnRate, float lifespan, bool isConstant, int maxParticles);
 
+	void SetObjective(int x, int y);
+
 	void Start();
-	void Update(float dt);
+	bool Update(float dt);
 	void PostUpdate();
 
+	void CleanParticles();
+
+	void AssignParticle(Particle* particle);
+
+	List<Particle*> GetParticleList() const {
+		return particles;
+	}
+	
 protected:
 private:
 
 	// variables
 public:
-	iPoint position;
-	iPoint velocity;
-	iPoint acceleration;
+	iPoint initialPosition;
+	iPoint objectivePosition;
 
-	char initialR;
-	char initialG;
-	char initialB;
-	char initialAlpha;
+	Color initialColor;
+	Color objectiveColor;
+
+	float age;
 
 	float spawnRate;
 
-	float lifespan;
-
 	bool isConstant;
+
+	float lifespan;
 
 	// to delete
 	int maxParticles;

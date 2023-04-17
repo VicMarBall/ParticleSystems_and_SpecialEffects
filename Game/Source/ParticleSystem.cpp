@@ -16,44 +16,69 @@ void ParticleSystem::SetParticleSystem(iPoint position, iPoint velocity, iPoint 
 	char initialR, char initialG, char initialB, char initialAlpha,
 	float spawnRate, float lifespan, bool isConstant, int maxParticles)
 {
-	this->position = position;
+	/*this->position = position;
 	this->velocity = velocity;
 	this->acceleration = acceleration;
 	this->initialR = initialR;
 	this->initialG = initialG;
 	this->initialB = initialB;
-	this->initialAlpha = initialAlpha;
+	this->initialAlpha = initialAlpha;*/
 	this->spawnRate = spawnRate;
 	this->lifespan = lifespan;
 	this->isConstant = isConstant;
 	this->maxParticles = maxParticles;
+
+	age = 0;
+}
+
+void ParticleSystem::SetObjective(int x, int y)
+{
+	objectivePosition.x = x;
+	objectivePosition.y = y;
 }
 
 void ParticleSystem::Start()
 {
-	// to delete
-	for (int i = 0; i < maxParticles; ++i)
-	{
-		Particle* p = new Particle;
-		particles.Add(p);
-	}
+
 }
 
-void ParticleSystem::Update(float dt)
+bool ParticleSystem::Update(float dt)
 {
 	for (ListItem<Particle*>* item = particles.start; item != NULL; item = item->next) {
 		if (item->data->IsBeingUsed()) {
 			item->data->Update(dt);
 		}
 	}
+
+	age += dt;
+
+	return (age > lifespan);
 }
 
 void ParticleSystem::PostUpdate()
 {
+	float t = age / lifespan;
+
+	iPoint position;
+	// lerp
+	position.x = initialPosition.x + (int)(t * (float)(objectivePosition.x - initialPosition.x));
+	position.y = initialPosition.y + (int)(t * (float)(objectivePosition.y - initialPosition.y));
+
+
 	for (ListItem<Particle*>* item = particles.start; item != NULL; item = item->next) {
 		if (item->data->IsBeingUsed()) {
-			app->render->DrawParticleAlpha(texture, position.x + item->data->position.x, position.y + item->data->position.y, 
-				item->data->r, item->data->g, item->data->b, item->data->alpha);
+			app->render->DrawParticleAlpha(texture, position.x + item->data->GetPosition().x, position.y + item->data->GetPosition().y, 
+				item->data->GetColor().r, item->data->GetColor().g, item->data->GetColor().b, item->data->GetColor().a);
 		}
 	}
+}
+
+void ParticleSystem::CleanParticles()
+{
+	particles.Clear();
+}
+
+void ParticleSystem::AssignParticle(Particle* particle)
+{
+	particles.Add(particle);
 }

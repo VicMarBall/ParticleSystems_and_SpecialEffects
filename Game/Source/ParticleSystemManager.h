@@ -6,8 +6,17 @@
 #include "List.h"
 #include "ParticleSystem.h"
 
+#define PARTICLE_POOL_SIZE 200
+
+enum Blueprint {
+	FIRE,
+	SMOKE,
+	NONE
+};
+
+
 // an object pool for particles and a manager for particle systems
-	// 
+
 class ParticleSystemManager : public Module
 {
 public:
@@ -32,11 +41,25 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+
+	ParticleSystem* CreateParticleSystem(Blueprint blueprint);
+
+
+	void GiveParticlesToPS(ParticleSystem* particleSystem, int amount);
+
+	void TakeParticlesFromPS(ParticleSystem* particleSystem);
+
+
+
+
+
 	// Called before quitting
 	bool CleanUp();
 
 private:
 	List<ParticleSystem*> particleSystems;
+	Particle particlePool[PARTICLE_POOL_SIZE];
+	Particle* firstParticleAvailable;
 
 };
 

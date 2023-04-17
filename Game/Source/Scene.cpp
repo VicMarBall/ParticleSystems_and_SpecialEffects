@@ -5,6 +5,8 @@
 #include "Render.h"
 #include "Window.h"
 #include "Scene.h"
+#include "ParticleSystemManager.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -56,6 +58,12 @@ bool Scene::Update(float dt)
 
 	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x += 1;
+
+	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+		app->PSManager->CreateParticleSystem(Blueprint::FIRE);
+	}
+
+
 
 	app->render->DrawTexture(img, 380, 100);
 

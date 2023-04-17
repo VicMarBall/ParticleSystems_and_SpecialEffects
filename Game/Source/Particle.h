@@ -1,6 +1,15 @@
 #pragma once
 #include "Point.h"
 
+// SDL has a SDL_Color, but because of linking problems I create our own
+struct Color {
+	char r;
+	char g;
+	char b;
+	char a;
+};
+
+
 class Particle {
 	// methods
 public:
@@ -13,23 +22,43 @@ public:
 
 	bool IsBeingUsed();
 
+	// get the next free particle in the pool
+	Particle* GetNext() const {
+		return next;
+	}
+
+	void SetNext(Particle* next) {
+		next = next;
+	}
+
+	fPoint GetPosition() const {
+		return position;
+	}
+
+	Color GetColor() const {
+		return color;
+	}
+
 protected:
 private:
 
 	// variables
 public:
-	fPoint position;
-	fPoint velocity;
-	fPoint acceleration;
-
-	char r;
-	char g;
-	char b;
-	char alpha;
-
-	float lifespan;
+	
 
 protected:
 private:
 
+	float timeLeft;
+
+	fPoint position;
+	fPoint velocity;
+	fPoint acceleration;
+
+	Color color;
+
+	float lifespan;
+
+
+	Particle* next;
 };

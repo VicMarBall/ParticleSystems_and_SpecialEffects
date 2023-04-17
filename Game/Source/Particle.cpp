@@ -16,10 +16,10 @@ void Particle::Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint 
 	this->velocity = initiaVelocity;
 	this->acceleration = acceleration;
 
-	this->r = red;
+	/*this->r = red;
 	this->g = green;
 	this->b = blue;
-	this->alpha = transparency;
+	this->alpha = transparency;*/
 
 	this->lifespan = lifespan;
 }
