@@ -50,6 +50,7 @@ bool ParticleSystemManager::Update(float dt)
 		bool isAlive = item->data->Update(dt);
 		if (!isAlive) {
 			TakeParticlesFromPS(item->data);
+			particleSystems.Del(item);
 		}
 	}
 
@@ -72,9 +73,10 @@ ParticleSystem* ParticleSystemManager::CreateParticleSystem(Blueprint blueprint)
 	switch (blueprint)
 	{
 	case FIRE:
-		GiveParticlesToPS(PS, 20);
+		GiveParticlesToPS(PS, 100);
 		PS->initialColor.r = 255;
 		PS->SetTexture(alphaTextures[0]);
+		PS->spawnRate = 0.1f;
 		break;
 	case SMOKE:
 		break;
@@ -101,19 +103,19 @@ void ParticleSystemManager::GiveParticlesToPS(ParticleSystem* particleSystem, in
 		}
 		else {
 			// here you can LOG that there are not enough particles
+			break;
 		}
 	}
 }
 
 void ParticleSystemManager::TakeParticlesFromPS(ParticleSystem* particleSystem)
 {
-	for (ListItem<Particle*>* item = particleSystem->GetParticleList().start; item != NULL; item = item->next) {
+	List<Particle*> particleList = particleSystem->GetParticleList();
+	for (ListItem<Particle*>* item = particleList.start; item != NULL; item = item->next) {
 		item->data->SetNext(firstParticleAvailable);
 		firstParticleAvailable = item->data;
+		particleList.Del(item);
 	}
-
-	particleSystem->CleanParticles();
-
 }
 
 bool ParticleSystemManager::CleanUp()

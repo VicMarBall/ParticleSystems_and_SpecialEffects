@@ -43,31 +43,35 @@ void ParticleSystem::Start()
 
 bool ParticleSystem::Update(float dt)
 {
-	for (ListItem<Particle*>* item = particles.start; item != NULL; item = item->next) {
-		if (item->data->IsBeingUsed()) {
-			item->data->Update(dt);
+	timeFromLastSpawn += dt;
+
+	for (ListItem<Particle*>* item = particles.start; item != nullptr; item = item->next) {
+		if (item->data != nullptr) {
+			if (item->data->IsBeingUsed()) {
+				item->data->Update(dt);
+			}
+			else {
+				if (spawnRate <= timeFromLastSpawn) {
+					SpawnParticle(item->data);
+					timeFromLastSpawn -= spawnRate;
+				}
+			}
 		}
 	}
 
 	age += dt;
 
-	return (age < PSLifespan);
+	return (age < PSLifespan || isConstant);
 }
 
 void ParticleSystem::PostUpdate()
 {
-	float t = age / PSLifespan;
-
-	iPoint position;
-	// lerp
-	position.x = initialPosition.x + (int)(t * (float)(objectivePosition.x - initialPosition.x));
-	position.y = initialPosition.y + (int)(t * (float)(objectivePosition.y - initialPosition.y));
-
-
-	for (ListItem<Particle*>* item = particles.start; item != NULL; item = item->next) {
-		if (item->data->IsBeingUsed()) {
-			app->render->DrawParticleAlpha(texture, position.x + item->data->GetPosition().x, position.y + item->data->GetPosition().y, 
-				item->data->GetColor().r, item->data->GetColor().g, item->data->GetColor().b, item->data->GetColor().a);
+	for (ListItem<Particle*>* item = particles.start; item != nullptr; item = item->next) {
+		if (item->data != nullptr) {
+			if (item->data->IsBeingUsed()) {
+				app->render->DrawParticleAlpha(texture, item->data->GetPosition().x, item->data->GetPosition().y,
+					item->data->GetColor().r, item->data->GetColor().g, item->data->GetColor().b, item->data->GetColor().a);
+			}
 		}
 	}
 }
@@ -79,6 +83,12 @@ void ParticleSystem::CleanParticles()
 
 void ParticleSystem::AssignParticle(Particle* particle)
 {
+	particle->ResetParticle();
+	particles.Add(particle);
+}
+
+void ParticleSystem::SpawnParticle(Particle* p)
+{
 	float t = age / PSLifespan;
 
 	fPoint position;
@@ -86,6 +96,27 @@ void ParticleSystem::AssignParticle(Particle* particle)
 	position.x = initialPosition.x + (int)(t * (float)(objectivePosition.x - initialPosition.x));
 	position.y = initialPosition.y + (int)(t * (float)(objectivePosition.y - initialPosition.y));
 
-	particle->Initialize(position, shootingVelocity, shootingAcceleration, initialColor.r, initialColor.g, initialColor.b, initialColor.a, particleLifespan);
-	particles.Add(particle);
+	if (randomSpawnPositionRangeMin.x - randomSpawnPositionRangeMax.x != 0) {
+		position.x += (rand() % (randomSpawnPositionRangeMin.x - randomSpawnPositionRangeMax.x)) - randomSpawnPositionRangeMin.x;
+
+	}
+
+	if (randomSpawnPositionRangeMin.y - randomSpawnPositionRangeMax.y != 0) {
+		position.y += (rand() % (randomSpawnPositionRangeMin.y - randomSpawnPositionRangeMax.y)) - randomSpawnPositionRangeMin.y;
+
+	}
+
+	fPoint velocity = shootingVelocity;
+
+	if (randomShootingVelocityRangeMin.x - randomShootingVelocityRangeMax.x != 0) {
+		velocity.x += (rand() % (randomShootingVelocityRangeMin.x - randomShootingVelocityRangeMax.x)) - randomShootingVelocityRangeMin.x;
+
+	}
+
+	if (randomShootingVelocityRangeMin.y - randomShootingVelocityRangeMax.y != 0) {
+		velocity.y += (rand() % (randomShootingVelocityRangeMin.y - randomShootingVelocityRangeMax.y)) - randomShootingVelocityRangeMin.y;
+
+	}
+
+	p->Initialize(position, velocity, shootingAcceleration, initialColor.r, initialColor.g, initialColor.b, initialColor.a, particleLifespan);
 }

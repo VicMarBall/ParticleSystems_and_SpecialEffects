@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <chrono>
 
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
@@ -111,6 +112,9 @@ bool App::Start()
 bool App::Update()
 {
 	bool ret = true;
+
+	std::chrono::high_resolution_clock::time_point timeStart = std::chrono::high_resolution_clock::now();
+
 	PrepareUpdate();
 
 	if(input->GetWindowEvent(WE_QUIT) == true)
@@ -126,6 +130,11 @@ bool App::Update()
 		ret = PostUpdate();
 
 	FinishUpdate();
+
+	auto timeEnd = std::chrono::high_resolution_clock::now();
+
+	dt = (float)std::chrono::duration_cast<std::chrono::microseconds>(timeEnd - timeStart).count() * 10E-7;
+
 	return ret;
 }
 

@@ -16,6 +16,8 @@ public:
 	Particle();
 	~Particle();
 
+	void ResetParticle();
+
 	void Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, char red, char green, char blue, char transparency, float lifespan);
 
 	void Update(float dt);
@@ -36,7 +38,7 @@ public:
 	}
 
 	Color GetColor() const {
-		return color;
+		return initialColor;
 	}
 
 protected:
@@ -55,10 +57,10 @@ private:
 	fPoint velocity;
 	fPoint acceleration;
 
-	Color color;
+	Color initialColor;
+	Color objectiveColor;
 
 	float lifespan;
-
 
 	Particle* next;
 };

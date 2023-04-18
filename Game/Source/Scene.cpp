@@ -59,8 +59,15 @@ bool Scene::Update(float dt)
 	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x += 1;
 
+
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
-		app->PSManager->CreateParticleSystem(Blueprint::FIRE);
+		if (PS == nullptr) {
+			PS = app->PSManager->CreateParticleSystem(Blueprint::FIRE);
+		}
+		else {
+			PS->TurnOff();
+			PS = nullptr;
+		}
 	}
 
 

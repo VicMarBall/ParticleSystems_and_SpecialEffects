@@ -10,13 +10,18 @@ Particle::~Particle()
 
 }
 
+void Particle::ResetParticle()
+{
+	timeLeft = -1;
+}
+
 void Particle::Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, char red, char green, char blue, char transparency, float lifespan)
 {
 	this->position = initialPosition;
 	this->velocity = initiaVelocity;
 	this->acceleration = acceleration;
 
-	this->color = Color{ red, green, blue, transparency };
+	this->initialColor = Color{ red, green, blue, transparency };
 
 	/*this->r = red;
 	this->g = green;

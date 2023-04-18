@@ -3,7 +3,6 @@
 #include "Defs.h"
 #include "Log.h"
 
-#include <chrono>
 
 // NOTE: SDL redefines main function
 #include "SDL/include/SDL.h"
@@ -37,7 +36,6 @@ int main(int argc, char* args[])
 	while(state != EXIT)
 	{
 
-		std::chrono::high_resolution_clock::time_point timeStart = std::chrono::high_resolution_clock::now();
 
 		switch(state)
 		{
@@ -109,12 +107,6 @@ int main(int argc, char* args[])
 			state = EXIT;
 			break;
 		}
-
-		std::chrono::high_resolution_clock::time_point timeEnd = std::chrono::high_resolution_clock::now();
-
-		std::chrono::microseconds ms = std::chrono::duration_cast<std::chrono::microseconds>(timeEnd - timeStart);
-
-		
 
 	}
 

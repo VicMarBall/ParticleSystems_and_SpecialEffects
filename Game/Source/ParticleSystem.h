@@ -36,25 +36,40 @@ public:
 		texture = tex;
 	}
 
+	void SpawnParticle(Particle* p);
+
+	void TurnOff() {
+		isConstant = false;
+		age = PSLifespan + 1;
+	}
+
 protected:
 private:
 
 	// variables
 public:
 	iPoint initialPosition = iPoint{ 100, 100 };
-	iPoint objectivePosition = iPoint{ 200, 100 };
+	iPoint objectivePosition = iPoint{ 100, 100 };
 
-	Color initialColor = { (char)255, (char)255, (char)255, (char)255 };
-	Color objectiveColor = { (char)255, (char)255, (char)255, (char)0 };
+	iPoint randomSpawnPositionRangeMin = iPoint{ 0, 0 };
+	iPoint randomSpawnPositionRangeMax = iPoint{ 0, 0 };
 
-	fPoint shootingVelocity = fPoint{ 0, 10 };
-	fPoint shootingAcceleration = fPoint{ 0, -2 };
+
+	Color initialColor = { (char)255, (char)0, (char)0, (char)255 };
+	Color objectiveColor = { (char)0, (char)0, (char)0, (char)0 };
+
+	fPoint shootingVelocity = fPoint{ 0, -10 };
+
+	iPoint randomShootingVelocityRangeMin = iPoint{ -2, 0 };
+	iPoint randomShootingVelocityRangeMax = iPoint{ 2, 2 };
+
+	fPoint shootingAcceleration = fPoint{ 0, 1 };
 
 	float age = 0;
 
 	float spawnRate = 1;
 
-	bool isConstant = false;
+	bool isConstant = true;
 
 	float PSLifespan = 10;
 
