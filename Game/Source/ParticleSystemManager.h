@@ -8,8 +8,6 @@
 
 #define PARTICLE_POOL_SIZE 200
 
-#define ALPHAS_AVAILABLES 1
-
 enum Blueprint {
 	FIRE,
 	SMOKE,
@@ -17,8 +15,11 @@ enum Blueprint {
 };
 
 enum AlphasIDs {
-	BASIC = 0
+	BASIC = 0,
+	SMOKE_WHITE,
+	SMOKE_SHADED,
 
+	ALPHAS_AVAILABLES
 };
 
 class SDL_Texture;
@@ -49,28 +50,27 @@ public:
 	// Called before all Updates
 	bool PostUpdate();
 
+	// Called before quitting
+	bool CleanUp();
 
-	ParticleSystem* CreateParticleSystem(Blueprint blueprint);
+
+	ParticleSystem* CreateParticleSystem(iPoint initialPosition, Blueprint blueprint);
 
 
+private:
 	void GiveParticlesToPS(ParticleSystem* particleSystem, int amount);
 
 	void TakeParticlesFromPS(ParticleSystem* particleSystem);
 
-
-
-
-
-	// Called before quitting
-	bool CleanUp();
+public: 
 
 private:
 	List<ParticleSystem*> particleSystems;
 	Particle particlePool[PARTICLE_POOL_SIZE];
 	Particle* firstParticleAvailable;
 
-	SDL_Texture* alphaTextures[ALPHAS_AVAILABLES];
+	SDL_Texture* alphaTextures[AlphasIDs::ALPHAS_AVAILABLES];
 
 };
 
-#endif // __SCENE_H__
+#endif // __PARTICLESYSTEMMANAGER_H__

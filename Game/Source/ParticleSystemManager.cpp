@@ -30,6 +30,11 @@ bool ParticleSystemManager::Start()
 
 	alphaTextures[0] = app->tex->Load("Assets/Textures/particles/particle.png");
 
+	alphaTextures[1] = app->tex->Load("Assets/Textures/particles/smoke_white.png");
+
+	alphaTextures[2] = app->tex->Load("Assets/Textures/particles/smoke_shaded.png");
+
+
 	// adapt it to xml
 	/*for (int i = 0; i < ALPHAS_AVAILABLES; ++i) {
 		app->tex->Load();
@@ -65,18 +70,24 @@ bool ParticleSystemManager::PostUpdate()
 	return true;
 }
 
-ParticleSystem* ParticleSystemManager::CreateParticleSystem(Blueprint blueprint)
+ParticleSystem* ParticleSystemManager::CreateParticleSystem(iPoint initialPosition, Blueprint blueprint)
 {
 	ParticleSystem* PS = new ParticleSystem();
-	PS->initialPosition = iPoint{ 100, 100 };
+	PS->initialPosition = initialPosition;
 
 	switch (blueprint)
 	{
 	case FIRE:
-		GiveParticlesToPS(PS, 100);
-		PS->initialColor.r = 255;
-		PS->SetTexture(alphaTextures[0]);
-		PS->spawnRate = 0.1f;
+		GiveParticlesToPS(PS, 20);
+		PS->SetTexture(alphaTextures[SMOKE_SHADED]);
+		PS->spawnRate = 0.8f;
+		PS->isConstant = true;
+		PS->initialColor.Set(150, 150, 150, 255);
+		PS->objectiveColor.Set(150, 150, 150, 0);
+		PS->particleLifespan = 10;
+		PS->shootingAcceleration = fPoint{ 0.0f, 0.5f };
+		PS->randomSpawnPositionRangeMin = iPoint{ -20, 0 };
+		PS->randomSpawnPositionRangeMax = iPoint{ 20, 0 };
 		break;
 	case SMOKE:
 		break;
@@ -120,5 +131,10 @@ void ParticleSystemManager::TakeParticlesFromPS(ParticleSystem* particleSystem)
 
 bool ParticleSystemManager::CleanUp()
 {
+	for (int i = 0; i < ALPHAS_AVAILABLES; ++i) {
+		app->tex->UnLoad(alphaTextures[i]);
+		alphaTextures[i] = nullptr;
+	}
+
 	return true;
 }

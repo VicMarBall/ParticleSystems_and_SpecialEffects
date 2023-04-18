@@ -40,7 +40,7 @@ public:
 
 	void TurnOff() {
 		isConstant = false;
-		age = PSLifespan + 1;
+		age = PSLifespan;
 	}
 
 protected:
@@ -55,8 +55,8 @@ public:
 	iPoint randomSpawnPositionRangeMax = iPoint{ 0, 0 };
 
 
-	Color initialColor = { (char)255, (char)0, (char)0, (char)255 };
-	Color objectiveColor = { (char)0, (char)0, (char)0, (char)0 };
+	Color initialColor = { (unsigned char)255, (unsigned char)0, (unsigned char)0, (unsigned char)255 };
+	Color objectiveColor = { (unsigned char)0, (unsigned char)0, (unsigned char)0, (unsigned char)0 };
 
 	fPoint shootingVelocity = fPoint{ 0, -10 };
 

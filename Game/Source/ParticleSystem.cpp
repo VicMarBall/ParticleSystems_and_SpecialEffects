@@ -45,13 +45,15 @@ bool ParticleSystem::Update(float dt)
 {
 	timeFromLastSpawn += dt;
 
+	age += dt;
+
 	for (ListItem<Particle*>* item = particles.start; item != nullptr; item = item->next) {
 		if (item->data != nullptr) {
 			if (item->data->IsBeingUsed()) {
 				item->data->Update(dt);
 			}
 			else {
-				if (spawnRate <= timeFromLastSpawn) {
+				if (spawnRate <= timeFromLastSpawn && (age < PSLifespan || isConstant)) {
 					SpawnParticle(item->data);
 					timeFromLastSpawn -= spawnRate;
 				}
@@ -59,9 +61,8 @@ bool ParticleSystem::Update(float dt)
 		}
 	}
 
-	age += dt;
 
-	return (age < PSLifespan || isConstant);
+	return (age < (PSLifespan + particleLifespan) || isConstant);
 }
 
 void ParticleSystem::PostUpdate()
@@ -118,5 +119,5 @@ void ParticleSystem::SpawnParticle(Particle* p)
 
 	}
 
-	p->Initialize(position, velocity, shootingAcceleration, initialColor.r, initialColor.g, initialColor.b, initialColor.a, particleLifespan);
+	p->Initialize(position, velocity, shootingAcceleration, initialColor, objectiveColor, particleLifespan);
 }

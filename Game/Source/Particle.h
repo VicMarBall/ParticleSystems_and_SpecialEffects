@@ -3,10 +3,17 @@
 
 // SDL has a SDL_Color, but because of linking problems I create our own
 struct Color {
-	char r;
-	char g;
-	char b;
-	char a;
+	void Set(int red, int green, int blue, int alpha) {
+		r = red;
+		g = green;
+		b = blue;
+		a = alpha;
+	}
+
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+	unsigned char a;
 };
 
 
@@ -16,11 +23,11 @@ public:
 	Particle();
 	~Particle();
 
-	void ResetParticle();
-
-	void Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, char red, char green, char blue, char transparency, float lifespan);
+	void Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, Color initialColor, Color objectiveColor, float lifespan);
 
 	void Update(float dt);
+
+	void ResetParticle();
 
 	bool IsBeingUsed();
 
@@ -38,7 +45,7 @@ public:
 	}
 
 	Color GetColor() const {
-		return initialColor;
+		return color;
 	}
 
 protected:
@@ -58,6 +65,7 @@ private:
 	fPoint acceleration;
 
 	Color initialColor;
+	Color color;
 	Color objectiveColor;
 
 	float lifespan;
