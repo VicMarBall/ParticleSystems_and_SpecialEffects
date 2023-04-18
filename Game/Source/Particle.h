@@ -28,7 +28,7 @@ public:
 	}
 
 	void SetNext(Particle* next) {
-		next = next;
+		this->next = next;
 	}
 
 	fPoint GetPosition() const {

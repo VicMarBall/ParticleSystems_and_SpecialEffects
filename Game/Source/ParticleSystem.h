@@ -16,7 +16,7 @@ public:
 	// to delete (put in manager)
 	void SetParticleSystem(iPoint position, iPoint velocity, iPoint acceleration, 
 		char initialR, char initialG, char initialB, char initialAlpha, 
-		float spawnRate, float lifespan, bool isConstant, int maxParticles);
+		float spawnRate, float lifespan, bool isConstant);
 
 	void SetObjective(int x, int y);
 
@@ -32,27 +32,33 @@ public:
 		return particles;
 	}
 	
+	void SetTexture(SDL_Texture* tex) {
+		texture = tex;
+	}
+
 protected:
 private:
 
 	// variables
 public:
-	iPoint initialPosition;
-	iPoint objectivePosition;
+	iPoint initialPosition = iPoint{ 100, 100 };
+	iPoint objectivePosition = iPoint{ 200, 100 };
 
-	Color initialColor;
-	Color objectiveColor;
+	Color initialColor = { (char)255, (char)255, (char)255, (char)255 };
+	Color objectiveColor = { (char)255, (char)255, (char)255, (char)0 };
 
-	float age;
+	fPoint shootingVelocity = fPoint{ 0, 10 };
+	fPoint shootingAcceleration = fPoint{ 0, -2 };
 
-	float spawnRate;
+	float age = 0;
 
-	bool isConstant;
+	float spawnRate = 1;
 
-	float lifespan;
+	bool isConstant = false;
 
-	// to delete
-	int maxParticles;
+	float PSLifespan = 10;
+
+	float particleLifespan = 5;
 
 protected:
 private:

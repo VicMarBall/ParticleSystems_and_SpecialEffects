@@ -32,9 +32,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(scene);
 
 	AddModule(PSManager);
+
+	AddModule(scene);
 
 	// Render last to swap buffer
 	AddModule(render);

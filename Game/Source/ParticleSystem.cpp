@@ -14,7 +14,7 @@ ParticleSystem::~ParticleSystem()
 
 void ParticleSystem::SetParticleSystem(iPoint position, iPoint velocity, iPoint acceleration,
 	char initialR, char initialG, char initialB, char initialAlpha,
-	float spawnRate, float lifespan, bool isConstant, int maxParticles)
+	float spawnRate, float lifespan, bool isConstant)
 {
 	/*this->position = position;
 	this->velocity = velocity;
@@ -24,9 +24,8 @@ void ParticleSystem::SetParticleSystem(iPoint position, iPoint velocity, iPoint 
 	this->initialB = initialB;
 	this->initialAlpha = initialAlpha;*/
 	this->spawnRate = spawnRate;
-	this->lifespan = lifespan;
+	this->PSLifespan = lifespan;
 	this->isConstant = isConstant;
-	this->maxParticles = maxParticles;
 
 	age = 0;
 }
@@ -52,12 +51,12 @@ bool ParticleSystem::Update(float dt)
 
 	age += dt;
 
-	return (age > lifespan);
+	return (age < PSLifespan);
 }
 
 void ParticleSystem::PostUpdate()
 {
-	float t = age / lifespan;
+	float t = age / PSLifespan;
 
 	iPoint position;
 	// lerp
@@ -80,5 +79,13 @@ void ParticleSystem::CleanParticles()
 
 void ParticleSystem::AssignParticle(Particle* particle)
 {
+	float t = age / PSLifespan;
+
+	fPoint position;
+	// lerp
+	position.x = initialPosition.x + (int)(t * (float)(objectivePosition.x - initialPosition.x));
+	position.y = initialPosition.y + (int)(t * (float)(objectivePosition.y - initialPosition.y));
+
+	particle->Initialize(position, shootingVelocity, shootingAcceleration, initialColor.r, initialColor.g, initialColor.b, initialColor.a, particleLifespan);
 	particles.Add(particle);
 }

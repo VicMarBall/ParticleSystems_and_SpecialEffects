@@ -8,12 +8,20 @@
 
 #define PARTICLE_POOL_SIZE 200
 
+#define ALPHAS_AVAILABLES 1
+
 enum Blueprint {
 	FIRE,
 	SMOKE,
 	NONE
 };
 
+enum AlphasIDs {
+	BASIC = 0
+
+};
+
+class SDL_Texture;
 
 // an object pool for particles and a manager for particle systems
 
@@ -60,6 +68,8 @@ private:
 	List<ParticleSystem*> particleSystems;
 	Particle particlePool[PARTICLE_POOL_SIZE];
 	Particle* firstParticleAvailable;
+
+	SDL_Texture* alphaTextures[ALPHAS_AVAILABLES];
 
 };
 

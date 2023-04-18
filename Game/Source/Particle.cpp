@@ -16,17 +16,21 @@ void Particle::Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint 
 	this->velocity = initiaVelocity;
 	this->acceleration = acceleration;
 
+	this->color = Color{ red, green, blue, transparency };
+
 	/*this->r = red;
 	this->g = green;
 	this->b = blue;
 	this->alpha = transparency;*/
 
 	this->lifespan = lifespan;
+
+	timeLeft = lifespan;
 }
 
 void Particle::Update(float dt)
 {
-	lifespan -= dt;
+	timeLeft -= dt;
 
 	velocity.x += acceleration.x * dt;
 	velocity.y += acceleration.y * dt;
@@ -37,5 +41,5 @@ void Particle::Update(float dt)
 
 bool Particle::IsBeingUsed()
 {
-	return (lifespan > 0);
+	return (timeLeft > 0);
 }

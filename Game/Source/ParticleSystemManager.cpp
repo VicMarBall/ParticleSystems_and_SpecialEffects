@@ -1,7 +1,12 @@
 #include "ParticleSystemManager.h"
 
+#include "App.h"
+
+#include "Textures.h"
+
 ParticleSystemManager::ParticleSystemManager()
 {
+	name.Create("psmanager");
 }
 
 ParticleSystemManager::~ParticleSystemManager()
@@ -22,6 +27,14 @@ bool ParticleSystemManager::Start()
 	}
 
 	particlePool[PARTICLE_POOL_SIZE - 1].SetNext(NULL);
+
+	alphaTextures[0] = app->tex->Load("Assets/Textures/particles/particle.png");
+
+	// adapt it to xml
+	/*for (int i = 0; i < ALPHAS_AVAILABLES; ++i) {
+		app->tex->Load();
+	}*/
+
 
 	return true;
 }
@@ -45,6 +58,9 @@ bool ParticleSystemManager::Update(float dt)
 
 bool ParticleSystemManager::PostUpdate()
 {
+	for (ListItem<ParticleSystem*>* item = particleSystems.start; item != NULL; item = item->next) {
+		item->data->PostUpdate();
+	}
 	return true;
 }
 
@@ -58,6 +74,7 @@ ParticleSystem* ParticleSystemManager::CreateParticleSystem(Blueprint blueprint)
 	case FIRE:
 		GiveParticlesToPS(PS, 20);
 		PS->initialColor.r = 255;
+		PS->SetTexture(alphaTextures[0]);
 		break;
 	case SMOKE:
 		break;
@@ -77,9 +94,10 @@ void ParticleSystemManager::GiveParticlesToPS(ParticleSystem* particleSystem, in
 	for (int i = 0; i < amount; ++i) {
 		if (firstParticleAvailable != NULL) {
 			Particle* newParticle = firstParticleAvailable;
-			firstParticleAvailable = newParticle->GetNext();
 
 			particleSystem->AssignParticle(newParticle);
+
+			firstParticleAvailable = newParticle->GetNext();
 		}
 		else {
 			// here you can LOG that there are not enough particles
