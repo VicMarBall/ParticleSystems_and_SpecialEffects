@@ -61,12 +61,12 @@ bool Scene::Update(float dt)
 
 
 	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
-		if (PS == nullptr) {
-			PS = app->PSManager->CreateParticleSystem(iPoint{100, 100}, Blueprint::FIRE);
+		if (smokePS == nullptr) {
+			smokePS = app->PSManager->CreateParticleSystem(iPoint{100, 100}, Blueprint::SMOKE);
 		}
 		else {
-			PS->TurnOff();
-			PS = nullptr;
+			smokePS->TurnOff();
+			smokePS = nullptr;
 		}
 	}
 

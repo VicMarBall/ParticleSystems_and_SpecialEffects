@@ -37,7 +37,7 @@ public:
 private:
 	SDL_Texture* img;
 
-	ParticleSystem* PS;
+	ParticleSystem* smokePS;
 };
 
 #endif // __SCENE_H__

@@ -6,7 +6,7 @@
 #include "List.h"
 #include "ParticleSystem.h"
 
-#define PARTICLE_POOL_SIZE 200
+#define PARTICLE_POOL_SIZE 10000
 
 enum Blueprint {
 	FIRE,

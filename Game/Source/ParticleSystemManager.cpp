@@ -78,18 +78,19 @@ ParticleSystem* ParticleSystemManager::CreateParticleSystem(iPoint initialPositi
 	switch (blueprint)
 	{
 	case FIRE:
-		GiveParticlesToPS(PS, 20);
+		
+		break;
+	case SMOKE:
+		GiveParticlesToPS(PS, 50);
 		PS->SetTexture(alphaTextures[SMOKE_SHADED]);
-		PS->spawnRate = 0.8f;
+		PS->spawnRate = 0.3f;
 		PS->isConstant = true;
-		PS->initialColor.Set(150, 150, 150, 255);
-		PS->objectiveColor.Set(150, 150, 150, 0);
+		PS->initialColor.Set(100, 100, 100, 255);
+		PS->objectiveColor.Set(250, 250, 150, 0);
 		PS->particleLifespan = 10;
 		PS->shootingAcceleration = fPoint{ 0.0f, 0.5f };
 		PS->randomSpawnPositionRangeMin = iPoint{ -20, 0 };
 		PS->randomSpawnPositionRangeMax = iPoint{ 20, 0 };
-		break;
-	case SMOKE:
 		break;
 	case NONE:
 		break;
