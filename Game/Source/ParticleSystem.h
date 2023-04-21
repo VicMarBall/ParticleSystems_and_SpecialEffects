@@ -49,6 +49,7 @@ private:
 	// variables
 public:
 	iPoint initialPosition = iPoint{ 100, 100 };
+	iPoint position = iPoint{ 100, 100 };
 	iPoint objectivePosition = iPoint{ 100, 100 };
 
 	iPoint randomSpawnPositionRangeMin = iPoint{ 0, 0 };

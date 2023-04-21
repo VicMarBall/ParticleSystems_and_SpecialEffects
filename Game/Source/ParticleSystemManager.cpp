@@ -54,6 +54,7 @@ bool ParticleSystemManager::Update(float dt)
 	for (ListItem<ParticleSystem*>* item = particleSystems.start; item != NULL; item = item->next) {
 		bool isAlive = item->data->Update(dt);
 		if (!isAlive) {
+			ParticleSystem* PSToDelete = item->data;
 			TakeParticlesFromPS(item->data);
 			particleSystems.Del(item);
 		}
@@ -74,11 +75,25 @@ ParticleSystem* ParticleSystemManager::CreateParticleSystem(iPoint initialPositi
 {
 	ParticleSystem* PS = new ParticleSystem();
 	PS->initialPosition = initialPosition;
+	PS->position = initialPosition;
+	PS->objectivePosition = initialPosition;
 
 	switch (blueprint)
 	{
 	case FIRE:
-		
+		GiveParticlesToPS(PS, 100);
+		PS->PSLifespan = 5;
+		PS->SetTexture(alphaTextures[AlphasIDs::BASIC]);
+		PS->spawnRate = 0.05f;
+		PS->isConstant = false;
+		PS->initialColor.Set(255, 255, 0, 255);
+		PS->objectiveColor.Set(255, 0, 0, 0);
+		PS->particleLifespan = 1;
+		PS->shootingAcceleration = fPoint{ 0.0f, -3.0f };
+		PS->randomShootingVelocityRangeMin = iPoint{ -2, -2 };
+		PS->randomShootingVelocityRangeMax = iPoint{ 2, 2 };
+		PS->randomSpawnPositionRangeMin = iPoint{ 0, 0 };
+		PS->randomSpawnPositionRangeMax = iPoint{ 2, 0 };
 		break;
 	case SMOKE:
 		GiveParticlesToPS(PS, 50);
@@ -91,6 +106,9 @@ ParticleSystem* ParticleSystemManager::CreateParticleSystem(iPoint initialPositi
 		PS->shootingAcceleration = fPoint{ 0.0f, 0.5f };
 		PS->randomSpawnPositionRangeMin = iPoint{ -20, 0 };
 		PS->randomSpawnPositionRangeMax = iPoint{ 20, 0 };
+		PS->randomShootingVelocityRangeMin = iPoint{ 2, 0 };
+		PS->randomShootingVelocityRangeMax = iPoint{ 10, 0 };
+
 		break;
 	case NONE:
 		break;

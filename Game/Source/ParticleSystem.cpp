@@ -32,6 +32,12 @@ void ParticleSystem::SetParticleSystem(iPoint position, iPoint velocity, iPoint 
 
 void ParticleSystem::SetObjective(int x, int y)
 {
+	PSLifespan = PSLifespan - age;
+	age = 0;
+
+	initialPosition.x = position.x;
+	initialPosition.y = position.y;
+
 	objectivePosition.x = x;
 	objectivePosition.y = y;
 }
@@ -60,7 +66,6 @@ bool ParticleSystem::Update(float dt)
 			}
 		}
 	}
-
 
 	return (age < (PSLifespan + particleLifespan) || isConstant);
 }
@@ -92,32 +97,51 @@ void ParticleSystem::SpawnParticle(Particle* p)
 {
 	float t = age / PSLifespan;
 
-	fPoint position;
 	// lerp
 	position.x = initialPosition.x + (int)(t * (float)(objectivePosition.x - initialPosition.x));
 	position.y = initialPosition.y + (int)(t * (float)(objectivePosition.y - initialPosition.y));
 
 	if (randomSpawnPositionRangeMin.x - randomSpawnPositionRangeMax.x != 0) {
-		position.x += (rand() % (randomSpawnPositionRangeMin.x - randomSpawnPositionRangeMax.x)) - randomSpawnPositionRangeMin.x;
-
+		if (randomSpawnPositionRangeMax.x > randomSpawnPositionRangeMin.x) {
+			position.x += (rand() % abs(randomSpawnPositionRangeMax.x - randomSpawnPositionRangeMin.x)) + randomSpawnPositionRangeMin.x;
+		}
+		else {
+			position.x += (rand() % abs(randomSpawnPositionRangeMin.x - randomSpawnPositionRangeMax.x)) + randomSpawnPositionRangeMax.x;
+		}
 	}
 
 	if (randomSpawnPositionRangeMin.y - randomSpawnPositionRangeMax.y != 0) {
-		position.y += (rand() % (randomSpawnPositionRangeMin.y - randomSpawnPositionRangeMax.y)) - randomSpawnPositionRangeMin.y;
-
+		if (randomSpawnPositionRangeMax.y > randomSpawnPositionRangeMin.y) {
+			position.y += (rand() % abs(randomSpawnPositionRangeMax.y - randomSpawnPositionRangeMin.y)) + randomSpawnPositionRangeMin.y;
+		}
+		else {
+			position.y += (rand() % abs(randomSpawnPositionRangeMin.y - randomSpawnPositionRangeMax.y)) + randomSpawnPositionRangeMax.y;
+		}
 	}
 
 	fPoint velocity = shootingVelocity;
 
 	if (randomShootingVelocityRangeMin.x - randomShootingVelocityRangeMax.x != 0) {
-		velocity.x += (rand() % (randomShootingVelocityRangeMin.x - randomShootingVelocityRangeMax.x)) - randomShootingVelocityRangeMin.x;
-
+		if (randomShootingVelocityRangeMax.x > randomShootingVelocityRangeMin.x) {
+			velocity.x += (rand() % abs(randomShootingVelocityRangeMax.x - randomShootingVelocityRangeMin.x)) + randomShootingVelocityRangeMin.x;
+		}
+		else {
+			velocity.x += (rand() % abs(randomShootingVelocityRangeMin.x - randomShootingVelocityRangeMax.x)) + randomShootingVelocityRangeMax.x;
+		}
 	}
 
 	if (randomShootingVelocityRangeMin.y - randomShootingVelocityRangeMax.y != 0) {
-		velocity.y += (rand() % (randomShootingVelocityRangeMin.y - randomShootingVelocityRangeMax.y)) - randomShootingVelocityRangeMin.y;
-
+		if (randomShootingVelocityRangeMax.y > randomShootingVelocityRangeMin.y) {
+			velocity.y += (rand() % abs(randomShootingVelocityRangeMax.y - randomShootingVelocityRangeMin.y)) + randomShootingVelocityRangeMin.y;
+		}
+		else {
+			velocity.y += (rand() % abs(randomShootingVelocityRangeMin.y - randomShootingVelocityRangeMax.y)) + randomShootingVelocityRangeMax.y;
+		}
 	}
 
-	p->Initialize(position, velocity, shootingAcceleration, initialColor, objectiveColor, particleLifespan);
+	fPoint spawnPosition;
+	spawnPosition.x = position.x;
+	spawnPosition.y = position.y;
+
+	p->Initialize(spawnPosition, velocity, shootingAcceleration, initialColor, objectiveColor, particleLifespan);
 }

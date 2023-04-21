@@ -37,6 +37,7 @@ public:
 private:
 	SDL_Texture* img;
 
+	ParticleSystem* firePS;
 	ParticleSystem* smokePS;
 };
 

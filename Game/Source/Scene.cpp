@@ -70,6 +70,21 @@ bool Scene::Update(float dt)
 		}
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
+		if (firePS == nullptr) {
+			firePS = app->PSManager->CreateParticleSystem(iPoint{ 100, 100 }, Blueprint::FIRE);
+		}
+		else {
+			firePS->TurnOff();
+			firePS = nullptr;
+		}
+	}
+	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) {
+		if (firePS != nullptr) {
+			firePS->SetObjective(500, 100);
+		}
+	}
+
 
 
 	app->render->DrawTexture(img, 380, 100);
