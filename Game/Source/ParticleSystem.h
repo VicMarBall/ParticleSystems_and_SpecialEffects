@@ -43,6 +43,18 @@ public:
 		age = PSLifespan;
 	}
 
+	// this eliminates initial and objective position
+	void SetPosition(int x, int y) {
+		initialPosition.x = x;
+		initialPosition.y = y;
+
+		position.x = x;
+		position.y = y;
+
+		objectivePosition.x = x;
+		objectivePosition.y = y;
+	}
+
 protected:
 private:
 

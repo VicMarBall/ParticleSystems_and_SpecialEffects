@@ -70,7 +70,7 @@ bool Scene::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_T) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
 		if (firePS == nullptr) {
 			firePS = app->PSManager->CreateParticleSystem(iPoint{ 100, 100 }, Blueprint::FIRE);
 		}
@@ -79,10 +79,12 @@ bool Scene::Update(float dt)
 			firePS = nullptr;
 		}
 	}
-	if (app->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN) {
-		if (firePS != nullptr) {
-			firePS->SetObjective(500, 100);
-		}
+	
+
+	if (firePS != nullptr) {
+		iPoint mousePos;
+		app->input->GetMousePosition(mousePos.x, mousePos.y);
+		firePS->SetPosition(mousePos.x, mousePos.y);
 	}
 
 

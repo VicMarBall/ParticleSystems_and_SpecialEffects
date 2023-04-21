@@ -85,7 +85,7 @@ ParticleSystem* ParticleSystemManager::CreateParticleSystem(iPoint initialPositi
 		PS->PSLifespan = 5;
 		PS->SetTexture(alphaTextures[AlphasIDs::BASIC]);
 		PS->spawnRate = 0.05f;
-		PS->isConstant = false;
+		PS->isConstant = true;
 		PS->initialColor.Set(255, 255, 0, 255);
 		PS->objectiveColor.Set(255, 0, 0, 0);
 		PS->particleLifespan = 1;
