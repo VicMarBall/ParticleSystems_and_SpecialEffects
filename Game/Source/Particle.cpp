@@ -15,7 +15,7 @@ void Particle::ResetParticle()
 	timeLeft = -1;
 }
 
-void Particle::Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, Color initialColor, Color objectiveColor, float lifespan)
+void Particle::Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, Color initialColor, Color objectiveColor, float initialScale, float objectiveScale, float lifespan)
 {
 	this->position = initialPosition;
 	this->velocity = initiaVelocity;
@@ -24,10 +24,8 @@ void Particle::Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint 
 	this->initialColor = initialColor;
 	this->objectiveColor = objectiveColor;
 
-	/*this->r = red;
-	this->g = green;
-	this->b = blue;
-	this->alpha = transparency;*/
+	this->initialScale = initialScale;
+	this->objectiveScale = objectiveScale;
 
 	this->lifespan = lifespan;
 
@@ -51,6 +49,8 @@ void Particle::Update(float dt)
 	color.g = initialColor.g + (int)(t * (objectiveColor.g - initialColor.g));
 	color.b = initialColor.b + (int)(t * (objectiveColor.b - initialColor.b));
 	color.a = initialColor.a + (int)(t * (objectiveColor.a - initialColor.a));
+
+	scale = initialScale + (t * (objectiveScale - initialScale));
 
 }
 

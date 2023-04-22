@@ -23,7 +23,7 @@ public:
 	Particle();
 	~Particle();
 
-	void Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, Color initialColor, Color objectiveColor, float lifespan);
+	void Initialize(fPoint initialPosition, fPoint initiaVelocity, fPoint acceleration, Color initialColor, Color objectiveColor, float initialScale, float objectiveScale, float lifespan);
 
 	void Update(float dt);
 
@@ -48,6 +48,10 @@ public:
 		return color;
 	}
 
+	float GetScale() const {
+		return scale;
+	}
+
 protected:
 private:
 
@@ -67,6 +71,10 @@ private:
 	Color initialColor;
 	Color color;
 	Color objectiveColor;
+
+	float initialScale;
+	float scale;
+	float objectiveScale;
 
 	float lifespan;
 

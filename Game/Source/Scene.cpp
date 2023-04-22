@@ -87,7 +87,11 @@ bool Scene::Update(float dt)
 		firePS->SetPosition(mousePos.x, mousePos.y);
 	}
 
-
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+		iPoint mousePos;
+		app->input->GetMousePosition(mousePos.x, mousePos.y);
+		app->PSManager->CreateParticleSystem(mousePos, EXPLOSION);
+	}
 
 	app->render->DrawTexture(img, 380, 100);
 

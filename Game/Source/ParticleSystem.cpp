@@ -76,7 +76,7 @@ void ParticleSystem::PostUpdate()
 		if (item->data != nullptr) {
 			if (item->data->IsBeingUsed()) {
 				app->render->DrawParticleAlpha(texture, item->data->GetPosition().x, item->data->GetPosition().y,
-					item->data->GetColor().r, item->data->GetColor().g, item->data->GetColor().b, item->data->GetColor().a);
+					item->data->GetColor().r, item->data->GetColor().g, item->data->GetColor().b, item->data->GetColor().a, item->data->GetScale());
 			}
 		}
 	}
@@ -143,5 +143,5 @@ void ParticleSystem::SpawnParticle(Particle* p)
 	spawnPosition.x = position.x;
 	spawnPosition.y = position.y;
 
-	p->Initialize(spawnPosition, velocity, shootingAcceleration, initialColor, objectiveColor, particleLifespan);
+	p->Initialize(spawnPosition, velocity, shootingAcceleration, initialColor, objectiveColor, initialScale, objectiveScale, particleLifespan);
 }

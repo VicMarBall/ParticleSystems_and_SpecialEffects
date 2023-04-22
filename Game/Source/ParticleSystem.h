@@ -71,6 +71,9 @@ public:
 	Color initialColor = { (unsigned char)255, (unsigned char)0, (unsigned char)0, (unsigned char)255 };
 	Color objectiveColor = { (unsigned char)0, (unsigned char)0, (unsigned char)0, (unsigned char)0 };
 
+	float initialScale = 1.0f;
+	float objectiveScale = 1.0f;
+
 	fPoint shootingVelocity = fPoint{ 0, -10 };
 
 	iPoint randomShootingVelocityRangeMin = iPoint{ -2, 0 };

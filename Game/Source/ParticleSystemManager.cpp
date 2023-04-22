@@ -81,19 +81,21 @@ ParticleSystem* ParticleSystemManager::CreateParticleSystem(iPoint initialPositi
 	switch (blueprint)
 	{
 	case FIRE:
-		GiveParticlesToPS(PS, 100);
+		GiveParticlesToPS(PS, 150);
 		PS->PSLifespan = 5;
 		PS->SetTexture(alphaTextures[AlphasIDs::BASIC]);
-		PS->spawnRate = 0.05f;
+		PS->spawnRate = 0.01f;
 		PS->isConstant = true;
 		PS->initialColor.Set(255, 255, 0, 255);
 		PS->objectiveColor.Set(255, 0, 0, 0);
-		PS->particleLifespan = 1;
-		PS->shootingAcceleration = fPoint{ 0.0f, -3.0f };
-		PS->randomShootingVelocityRangeMin = iPoint{ -2, -2 };
-		PS->randomShootingVelocityRangeMax = iPoint{ 2, 2 };
+		PS->particleLifespan = 1.3f;
+		PS->shootingAcceleration = fPoint{ 0.0f, -10.0f };
+		PS->randomShootingVelocityRangeMin = iPoint{ -5, -10 };
+		PS->randomShootingVelocityRangeMax = iPoint{ 5, 2 };
 		PS->randomSpawnPositionRangeMin = iPoint{ 0, 0 };
-		PS->randomSpawnPositionRangeMax = iPoint{ 2, 0 };
+		PS->randomSpawnPositionRangeMax = iPoint{ 0, 0 };
+		PS->initialScale = 6.0f;
+		PS->objectiveScale = 1.0f;
 		break;
 	case SMOKE:
 		GiveParticlesToPS(PS, 50);
@@ -109,6 +111,23 @@ ParticleSystem* ParticleSystemManager::CreateParticleSystem(iPoint initialPositi
 		PS->randomShootingVelocityRangeMin = iPoint{ 2, 0 };
 		PS->randomShootingVelocityRangeMax = iPoint{ 10, 0 };
 
+		break;
+	case EXPLOSION:
+		GiveParticlesToPS(PS, 100);
+		PS->PSLifespan = 0.1f;
+		PS->SetTexture(alphaTextures[AlphasIDs::BASIC]);
+		PS->spawnRate = 0.0f;
+		PS->isConstant = false;
+		PS->initialColor.Set(255, 255, 0, 255);
+		PS->objectiveColor.Set(255, 0, 0, 0);
+		PS->particleLifespan = 1.3f;
+		PS->shootingAcceleration = fPoint{ 0.0f, 0.0f };
+		PS->randomShootingVelocityRangeMin = iPoint{ -100, -100 };
+		PS->randomShootingVelocityRangeMax = iPoint{ 100, 100 };
+		PS->randomSpawnPositionRangeMin = iPoint{ 0, 0 };
+		PS->randomSpawnPositionRangeMax = iPoint{ 0, 0 };
+		PS->initialScale = 6.0f;
+		PS->objectiveScale = 1.0f;
 		break;
 	case NONE:
 		break;

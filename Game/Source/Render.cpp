@@ -146,14 +146,14 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* sec
 }
 
 // Blit to screen
-bool Render::DrawParticleAlpha(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 alpha, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
+bool Render::DrawParticleAlpha(SDL_Texture* texture, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 alpha, float scale, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
+	uint windowScale = app->win->GetScale();
 
 	SDL_Rect rect;
-	rect.x = (int)(camera.x * speed) + x * scale;
-	rect.y = (int)(camera.y * speed) + y * scale;
+	rect.x = (int)(camera.x * speed) + x * windowScale;
+	rect.y = (int)(camera.y * speed) + y * windowScale;
 
 	if (section != NULL)
 	{
@@ -165,8 +165,14 @@ bool Render::DrawParticleAlpha(SDL_Texture* texture, int x, int y, Uint8 r, Uint
 		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
 	}
 
+	rect.w *= windowScale;
+	rect.h *= windowScale;
+
 	rect.w *= scale;
 	rect.h *= scale;
+
+	rect.x -= rect.w * 0.5f;
+	rect.y -= rect.h * 0.5f;
 
 	SDL_Point* p = NULL;
 	SDL_Point pivot;
@@ -176,6 +182,7 @@ bool Render::DrawParticleAlpha(SDL_Texture* texture, int x, int y, Uint8 r, Uint
 		pivot.x = pivotX;
 		pivot.y = pivotY;
 		p = &pivot;
+
 	}
 
 	SDL_SetTextureColorMod(texture, r, g, b);
