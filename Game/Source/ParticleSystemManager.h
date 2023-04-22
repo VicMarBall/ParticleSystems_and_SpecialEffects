@@ -9,6 +9,7 @@
 #define PARTICLE_POOL_SIZE 10000
 
 enum Blueprint {
+	CONSTANT_FIRE,
 	FIRE,
 	SMOKE,
 	EXPLOSION,
