@@ -39,3 +39,9 @@ Another thing that could be added is making the alphas as a spritesheet and maki
 
 ### Various Interpolation Funtions
 Now, when the particles change over time, they do it in a linear manner (LERP). Another addition can be to make different interpolation with different functions.
+
+## References
+
+Making a Particle System WITHOUT a Game Engine! - Small Hedge Games (https://www.youtube.com/watch?v=s8LGqotLc-g)
+
+Object Pool - Optimization Patterns - Game Programming Patterns (https://gameprogrammingpatterns.com/object-pool.html)
