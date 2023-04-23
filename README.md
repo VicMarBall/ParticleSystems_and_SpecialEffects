@@ -28,11 +28,16 @@ Add the ParticleSystemManager to your App's Module System (and adapt any possibl
 ### Add the PrintAlphaTexture in your Render Module
 To be able to print the particles with changing colors, a new function has to be added to the Render module (This is made to work with SDL). You can find the function in Render.cpp
 
-## Extra TO-DOs
+
+## TO-DOs
+
+For this practice we will create a particle system
+
+
+## Extra Features
 
 ### XML Inclusion
 A possible extra inclusion could be making the blueprints in an XML file, loading them and having them separated from the code.
-
 
 ### Animated Particles
 Another thing that could be added is making the alphas as a spritesheet and making the particles animated.
