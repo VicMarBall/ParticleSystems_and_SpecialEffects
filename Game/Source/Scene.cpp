@@ -32,9 +32,6 @@ bool Scene::Awake()
 // Called before the first frame
 bool Scene::Start()
 {
-	img = app->tex->Load("Assets/Textures/test.png");
-	app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-
 	return true;
 }
 
@@ -60,9 +57,9 @@ bool Scene::Update(float dt)
 		app->render->camera.x += 1;
 
 
-	if (app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN) {
 		if (smokePS == nullptr) {
-			smokePS = app->PSManager->CreateParticleSystem(iPoint{100, 100}, Blueprint::SMOKE);
+			smokePS = app->PSManager->CreateParticleSystem(iPoint{200, 200}, Blueprint::SMOKE);
 		}
 		else {
 			smokePS->TurnOff();
@@ -70,37 +67,34 @@ bool Scene::Update(float dt)
 		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN) {
-		if (firePS == nullptr) {
-			firePS = app->PSManager->CreateParticleSystem(iPoint{ 100, 100 }, Blueprint::CONSTANT_FIRE);
-		}
-		else {
-			firePS->TurnOff();
-			firePS = nullptr;
-		}
-	}
-	
-
-	if (firePS != nullptr) {
-		iPoint mousePos;
-		app->input->GetMousePosition(mousePos.x, mousePos.y);
-		firePS->SetPosition(mousePos.x, mousePos.y);
-	}
-
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
-		iPoint mousePos;
-		app->input->GetMousePosition(mousePos.x, mousePos.y);
-		app->PSManager->CreateParticleSystem(mousePos, EXPLOSION);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN) {
+	if (app->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN) {
 		iPoint startPosition = iPoint{ 200, 300 };
 		ParticleSystem* ps = app->PSManager->CreateParticleSystem(startPosition, FIRE);
 		iPoint endPosition = iPoint{ 600, 300 };
 		ps->SetObjective(endPosition.x, endPosition.y);
 	}
 
-	app->render->DrawTexture(img, 380, 100);
+	if (app->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN) {
+		if (mouseFirePS == nullptr) {
+			mouseFirePS = app->PSManager->CreateParticleSystem(iPoint{ 100, 100 }, Blueprint::CONSTANT_FIRE);
+		}
+		else {
+			mouseFirePS->TurnOff();
+			mouseFirePS = nullptr;
+		}
+	}
+	
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN) {
+		iPoint mousePos;
+		app->input->GetMousePosition(mousePos.x, mousePos.y);
+		app->PSManager->CreateParticleSystem(mousePos, EXPLOSION);
+	}
+
+	if (mouseFirePS != nullptr) {
+		iPoint mousePos;
+		app->input->GetMousePosition(mousePos.x, mousePos.y);
+		mouseFirePS->SetPosition(mousePos.x, mousePos.y);
+	}
 
 	return true;
 }

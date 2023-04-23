@@ -35,9 +35,7 @@ public:
 	bool CleanUp();
 
 private:
-	SDL_Texture* img;
-
-	ParticleSystem* firePS;
+	ParticleSystem* mouseFirePS;
 	ParticleSystem* smokePS;
 };
 

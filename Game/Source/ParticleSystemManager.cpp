@@ -119,8 +119,8 @@ ParticleSystem* ParticleSystemManager::CreateParticleSystem(iPoint initialPositi
 		PS->SetTexture(alphaTextures[SMOKE_SHADED]);
 		PS->spawnRate = 0.3f;
 		PS->isConstant = true;
-		PS->initialColor.Set(100, 100, 100, 255);
-		PS->objectiveColor.Set(250, 250, 150, 0);
+		PS->initialColor.Set(150, 150, 150, 255);
+		PS->objectiveColor.Set(0, 0, 0, 0);
 		PS->particleLifespan = 10;
 		PS->shootingAcceleration = fPoint{ 0.0f, 0.5f };
 		PS->randomSpawnPositionRangeMin = iPoint{ -20, 0 };
