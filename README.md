@@ -33,8 +33,8 @@ Add the following files found in this Github proyect: Particle.cpp, Particle.h, 
 ### Add the Module ParticleSystemManager
 Add the ParticleSystemManager to your App's Module System (and adapt any possible inconsistencies)
 
-### Add the PrintAlphaTexture in your Render Module
-To be able to print the particles with changing colors, a new function has to be added to the Render module (This is made to work with SDL). You can find the function in Render.cpp
+### Add the DrawParticleAlpha in your Render Module
+To be able to print the particles with changing colors, a new function has to be added to the Render module (This is made to work with SDL). You can find the function DrawParticleAlpha in Render.cpp
 
 ## Extra Posible Inclusions
 
